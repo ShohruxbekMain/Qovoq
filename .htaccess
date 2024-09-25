@@ -1,0 +1,74 @@
+#<IfModule mod_rewrite.c>
+#    <IfModule mod_negotiation.c>
+#        Options -MultiViews -Indexes
+#    </IfModule>
+#
+#    RewriteEngine On
+#
+#    # Handle Authorization Header
+##    RewriteCond %{HTTP:Authorization} .
+##    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+#
+#    # Redirect Trailing Slashes If Not A Folder...
+#    RewriteCond %{REQUEST_FILENAME} !-d
+#    RewriteCond %{REQUEST_URI} (.+)/$
+#    RewriteRule ^ %1 [L,R=301]
+#
+#    # Send Requests To Front Controller...
+#    RewriteCond %{REQUEST_FILENAME} !-d
+#    RewriteCond %{REQUEST_FILENAME} !-f
+#    RewriteRule ^ /public/index.php [L]
+#</IfModule>
+
+
+
+#<IfModule dir_module>
+#    DirectoryIndex index.php index.html
+#</IfModule>
+#AddDefaultCharset UTF-8
+#AddCharset UTF-8 .html
+#<FilesMatch "\.(php)$">
+#   Header set Cache-Control: "no-cache, no-store"
+#   Header unset ETag
+#</FilesMatch>
+#Header set X-Content-Type-Options nosniff
+
+
+
+
+AddCharset UTF-8 .php
+<FilesMatch "\.(php)$">
+   Header set Cache-Control: "no-cache, no-store"
+   Header unset ETag
+</FilesMatch>
+Header set X-Content-Type-Options nosniff
+
+# DISABLE CACHING
+<IfModule mod_headers.c>
+    RewriteEngine On
+    RewriteBase /
+    # `public` papkani bazaviy papka sifatida belgilash
+    RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    RewriteRule ^ %1 [L,NE,R=302]
+    RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+#    RewriteRule ^(/)?$ /public/index.php [L]
+#    RewriteRule ^((?!index\.php).+)$ /index.php [L]
+#    RewriteRule ^.*$ /public/index.php [L,QSA]
+#    RewriteRule ^(.*)$ /public/index.php?path=$1 [NC,L,QSA]
+#    RewriteRule ^(.*)$ /public/$1 [L]
+#    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+</IfModule>
+
+# Protect .htaccess file
+<Files .htaccess>
+    Order Allow,Deny
+    Deny from all
+</Files>

@@ -1,0 +1,15 @@
+{
+    "name": "shohrux/qovoq.local",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Shohrux Raimxonov",
+            "email": "shohruxbek.r.l@gmail.com"
+        }
+    ],
+    "require": {}
+}
