@@ -31,7 +31,8 @@ use app\models\RegisterModel;
             <?= $form->field($model, 'email')->emailField(); ?>
         </div>
         <div class="col-lg-6 col-md-12">
-            <?= $form->field($model, 'password')->passwordField()->initialValue(); ?>
+            <?= $form->field($model, 'password')->passwordField()->passwordHelpAreaField()->initialValue(); ?>
+
         </div>
         <div class="col-lg-6 col-md-12">
             <?= $form->field($model, 'confirmPassword')->passwordField()->initialValue(); ?>

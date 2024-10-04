@@ -136,7 +136,15 @@ abstract class Model
             self::RULE_TERMS => 'You must agree to the terms and conditions.',
         ];
     }
-
+    public function getRuleParams($attribute, $ruleName): ?array
+    {
+        foreach ($this->rules()[$attribute] as $rule) {
+            if (is_array($rule) && $rule[0] === $ruleName) {
+                return $rule; // Return the whole rule array, for example ['min' => 8]
+            }
+        }
+        return null;
+    }
     public function hasError($attribute)
     {
         return $this->errors[$attribute] ?? false;
