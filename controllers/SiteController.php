@@ -24,7 +24,8 @@ class SiteController extends Controller
     public function home()
     {
         $params = [
-            'name' => "Guest"
+            'name' => "Guest",
+            'title' => "Home Page",
         ];
 //        return Application::$app->router->renderView('home', $params);
         return $this->render('home', $params);
@@ -32,16 +33,19 @@ class SiteController extends Controller
 
     public function contact()
     {
-        return $this->render('contact');
+        $params = [
+            'title' => "Contact Us", // Dinamik title
+        ];
+        return $this->render('contact', $params);
     }
 
     public function handleContact(Request $request)
     {
-       $body = $request->getBody();
-       echo '<pre>';
-       var_dump($body);
-       echo '</pre>';
-       exit;
+        $body = $request->getBody();
+        echo '<pre>';
+        var_dump($body);
+        echo '</pre>';
+        exit;
 
         return 'Handling submitted contact form';
     }

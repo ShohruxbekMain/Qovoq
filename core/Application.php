@@ -13,21 +13,22 @@ class Application
     public Router $router;
     public Request $request;
     public Response $response;
-    public  Database $db;
 
+    public  Database $db;
+    public Session $session;
 
     public static Application $app;
     public Controller $controller;
 //    public ?Controller $controller = null;
-    public function __construct($rootPath, array $config)
+    public function __construct($rootPath, $config)
     {
         self::$ROOT_DIR = $rootPath;
         self::$app = $this;
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
-
         $this->db = new Database($config['db']);
+        $this->session = new Session();
     }
 
     public function run()

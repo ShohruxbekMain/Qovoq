@@ -49,8 +49,22 @@ class Field
     public const TYPE_PASSWORD_HELP_BLOCK = '<div id="passwordHelpBlock" class="form-text">
                 Your password must be {min}-{max} characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
             </div>';
+
+    public const TYPE_IS_PASSWORD = '<div class="position-absolute z-3 border-end border-1 border-secondary-subtle d-flex align-items-center justify-content-between password-showhide" style="width: 54px; height: 54px; top: 2px; left:2px; cursor:pointer;">
+        <span class="bx bx-show bx-sm h-100 w-100 align-items-center justify-content-center show-password" style="color:#aaa;"></span>
+        <span class="bx bx-hide bx-sm h-100 w-100 align-items-center justify-content-center hide-password" style="color:#aaa;"></span>
+        </div>' ;
+    public const TYPE_IS_CONFIRM_PASSWORD = '<div class="position-absolute z-3 border-end border-1 border-secondary-subtle d-flex align-items-center justify-content-between password-showhide" style="width: 54px; height: 54px; top: 2px; left:2px; cursor:pointer;">
+        <span class="bx bx-show bx-sm h-100 w-100 align-items-center justify-content-center show-confirm-password" style="color:#aaa;"></span>
+        <span class="bx bx-hide bx-sm h-100 w-100 align-items-center justify-content-center hide-confirm-password" style="color:#aaa;"></span>
+        </div>';
+    public const TYPE_IS_NOT_PASSWORD = '';
     public const TYPE_PASSWORD_HELP_BLOCK_GEN_NO = '';
     public const TYPE_PASSWORD_HELP_BLOCK_GEN = 'aria-describedby="passwordHelpBlock"';
+
+    public const TYPE_AUTOCOMPLETE_ON = 'autocomplete="on"';
+    public const TYPE_AUTOCOMPLETE_OFF = 'autocomplete="off"';
+    public const TYPE_AUTOCOMPLETE_NEW_PASSWORD = 'autocomplete="new-password" data-1p-ignore data-bwignore data-lpignore="true" data-form-type="other"';
 
 
     public Model $model;
@@ -59,7 +73,9 @@ class Field
     public string $inputClass;
     public string $passHelpAreaGen;
     public string $passHelpAreaBlock;
+    public string $passShow;
     public string $attribute;
+    public string $autocomplete;
 
 
     /**
@@ -73,41 +89,61 @@ class Field
         $this->inputClass = self::TYPE_INPUT_CLASS;
         $this->passHelpAreaGen = self::TYPE_PASSWORD_HELP_BLOCK_GEN_NO;
         $this->passHelpAreaBlock = self::TYPE_PASSWORD_HELP_BLOCK_NO;
+        $this->passShow = self::TYPE_IS_NOT_PASSWORD;
         $this->model = $model;
         $this->attribute = $attribute;
+        $this->autocomplete = self::TYPE_AUTOCOMPLETE_ON;
     }
 
     public function __toString()
     {
         return sprintf('
         <div class="%s mb-4">
-            <input type="%s" name="%s" value="%s" class="%s %s" id="%s" placeholder="%s" %s>
-            <label for="%s">%s</label>
+            <input %s type="%s" name="%s" value="%s" class="%s %s" id="%s" placeholder="%s" %s >
             %s
+            <label for="%s">%s</label>
             <div class="invalid-feedback">
                 %s
             </div>
+            %s
         </div>
         ',
-            $this->genClass,
-            $this->type,
-            $this->attribute,
-            $this->model->{$this->attribute},
-            $this->inputClass,
-            $this->model->hasError($this->attribute) ? ' is-invalid' : ' ',
-            $this->attribute,
-            $this->attribute,
-            $this->passHelpAreaGen,
-            $this->attribute,
-            $this->model->getLabel($this->attribute),
-            $this->passHelpAreaBlock,
-            $this->model->getFirstError($this->attribute)
+            htmlspecialchars($this->genClass, ENT_QUOTES), // Xavfsiz kodlash
+            htmlspecialchars($this->autocomplete, ENT_QUOTES),
+            htmlspecialchars($this->type, ENT_QUOTES),
+            htmlspecialchars($this->attribute, ENT_QUOTES),
+            htmlspecialchars($this->model->{$this->attribute}, ENT_QUOTES), // Xavfsiz kodlash
+            htmlspecialchars($this->inputClass, ENT_QUOTES),
+            htmlspecialchars($this->model->hasError($this->attribute) ? ' is-invalid' : ' ', ENT_QUOTES),
+            htmlspecialchars($this->attribute, ENT_QUOTES),
+            htmlspecialchars($this->attribute, ENT_QUOTES),
+            htmlspecialchars($this->passHelpAreaGen, ENT_QUOTES),
+
+            $this->passShow,
+
+            htmlspecialchars($this->attribute, ENT_QUOTES),
+            $this->model->getLabel($this->attribute), // Xavfsiz kodlash
+            htmlspecialchars($this->model->getFirstError($this->attribute), ENT_QUOTES), // Xavfsiz kodlash
+            $this->passHelpAreaBlock // Xavfsiz kodlash
         );
     }
 
     public function passwordField(): Field
     {
         $this->type = self::TYPE_PASSWORD;
+        $this->autocomplete = self::TYPE_AUTOCOMPLETE_NEW_PASSWORD;
+        return $this;
+    }
+
+    public function passwordShowField(): Field
+    {
+        $this->passShow = self::TYPE_IS_PASSWORD;
+        return $this;
+    }
+
+    public function confirmPasswordShowField() : Field
+    {
+        $this->passShow = self::TYPE_IS_CONFIRM_PASSWORD;
         return $this;
     }
 
@@ -130,7 +166,6 @@ class Field
 
         // Aria atributini qo'shamiz
         $this->passHelpAreaGen = self::TYPE_PASSWORD_HELP_BLOCK_GEN;
-
         return $this;
     }
 

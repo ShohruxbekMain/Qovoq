@@ -14,7 +14,7 @@ use app\core\Application;
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>$title</title>
+    <title><?= htmlspecialchars($title ?? 'Default Title') ?></title>
 <!--    <link rel="stylesheet" href="../../public/assets/css/bootstrap/bootstrap.min.css">-->
 <!--    <link rel="stylesheet" href="../../public/assets/css/boxicons.min.css">-->
 <!--    <link rel="stylesheet" href="../../public/assets/css/animate.min.css">-->
@@ -39,6 +39,7 @@ use app\core\Application;
 <script src="./assets/js/bootstrap/bootstrap.bundle.min.js"></script>
 <script src="./assets/js/bootstrap-notify.min.js"></script>
 <script src="./assets/js/validation.js"></script>
+<script src="./assets/js/main.js"></script>
 <!--<script src="../../public/assets/js/script.js"></script>-->
 </body>
 </html>

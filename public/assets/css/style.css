@@ -39,9 +39,11 @@ body {
 body, html {
     scroll-behavior: smooth;
 }
+
 body.blind {
     background-color: darkgrey !important;
 }
+
 html.blind {
     filter: grayscale(1) invert(0);
     -webkit-filter: grayscale(1) invert(0);
@@ -56,6 +58,7 @@ html.blind {
     background-color: var(--bs-white) !important;
     color: var(--bs-primary) !important;
 }
+
 /*Mahsus imkoniyatlar*/
 /*toggle tugmachasi*/
 
@@ -82,6 +85,7 @@ html.blind {
     cursor: pointer;
     /*background-image: url("../images/icons/moon.svg");*/
 }
+
 .dark-mode-switch .label,
 .darkmode .label,
 .voiceMode .label {
@@ -96,6 +100,7 @@ html.blind {
     cursor: pointer;
     background-size: 21px 13px !important;
 }
+
 .dark-mode-switch .label {
     background: url("../icons/moon.svg") no-repeat right/contain var(--text-color);
 }
@@ -123,6 +128,7 @@ html.blind {
     z-index: 1;
     background-size: 16px 15px !important;
 }
+
 .dark-mode-switch .label:after {
     background: url("../icons/sun.svg") no-repeat left/contain;
 }
@@ -219,7 +225,6 @@ html.blind {
     transition: 0.4s;
     border-radius: 50%;
 }
-
 
 
 .footer-fixed-menus {
@@ -410,6 +415,7 @@ html.blind {
     text-align: center;
     color: var(--bs-primary);
 }
+
 .plusMode #plusBtn:checked + label {
     transform: rotate(135deg);
 }
@@ -423,3 +429,74 @@ html.blind {
 }
 
 /*BOOTSTRAP TOOLS */
+
+.password-required {
+    display: none;
+}
+
+.password-required ul {
+    padding: 0;
+    margin: 0 0 15px;
+    list-style: none;
+}
+
+.password-required ul li {
+    margin-bottom: 8px;
+    color: #c9c9c9;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    transition: 150ms ease-in-out;
+}
+
+.password-required ul li.active {
+    color: yellowgreen;
+    transition: 150ms ease-in-out;
+}
+
+.password-required ul li span:before {
+    font-family: boxicons !important;
+    font-weight: 400;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+    display: inline-block;
+    text-transform: none;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\ed47";
+    margin-right: 4px;
+    font-size: 1rem !important;
+}
+
+.password-required ul li.active span:before {
+    content: "\ed31";
+}
+
+.show-password {
+    display: flex;
+}
+
+.hide-password {
+    display: none
+}
+
+.show-confirm-password {
+    display: flex;
+}
+
+.hide-confirm-password {
+    display: none
+}
+
+#password,
+#confirmPassword {
+    padding-left: 66px !important;
+}
+#password ~label,
+#confirmPassword ~ label{
+    margin-left: 56px !important;
+}

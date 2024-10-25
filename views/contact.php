@@ -8,7 +8,8 @@
  */
 ?>
 <div class="container mt-5 ">
-    <h1 class="mb-3">Contact us</h1>
+    <h1 class="mb-3"><?= htmlspecialchars($title ?? 'Contact us') ?></h1>
+    <p>This is the contact page.</p>
     <form action="" method="post">
         <div class="mb-3">
             <label for="exampleInputSubject1" class="form-label">Subject</label>
