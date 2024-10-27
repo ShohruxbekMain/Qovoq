@@ -62,9 +62,9 @@ abstract class BaseField
     public const TYPE_PASSWORD_HELP_BLOCK_GEN_NO = '';
     public const TYPE_PASSWORD_HELP_BLOCK_GEN = 'aria-describedby="passwordHelpBlock"';
 
-//    public const TYPE_AUTOCOMPLETE_ON = 'autocomplete="on"';
-//    public const TYPE_AUTOCOMPLETE_OFF = 'autocomplete="off"';
-//    public const TYPE_AUTOCOMPLETE_NEW_PASSWORD = 'autocomplete="new-password" data-1p-ignore data-bwignore data-lpignore="true" data-form-type="other"';
+    public const TYPE_AUTOCOMPLETE_ON = 'autocomplete="on"';
+    public const TYPE_AUTOCOMPLETE_OFF = 'autocomplete="off"';
+    public const TYPE_AUTOCOMPLETE_NEW_PASSWORD = 'autocomplete="new-password" data-1p-ignore data-bwignore data-lpignore="true" data-form-type="other"';
 
     public string $genClass;
     public string $inputClass;
@@ -74,7 +74,7 @@ abstract class BaseField
     public Model $model;
 
     public string $attribute;
-//    public string $autocomplete;
+    public string $autocomplete;
 
     /**
      * @param Model $model
@@ -88,7 +88,7 @@ abstract class BaseField
         $this->passHelpAreaGen = self::TYPE_PASSWORD_HELP_BLOCK_GEN_NO;
         $this->passHelpAreaBlock = self::TYPE_PASSWORD_HELP_BLOCK_NO;
         $this->passShow = self::TYPE_IS_NOT_PASSWORD;
-//        $this->autocomplete = self::TYPE_AUTOCOMPLETE_ON;
+        $this->autocomplete = self::TYPE_AUTOCOMPLETE_ON;
         $this->model = $model;
         $this->attribute = $attribute;
 

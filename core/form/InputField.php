@@ -31,7 +31,7 @@ class InputField extends BaseField
     public function passwordField(): InputField
     {
         $this->type = self::TYPE_PASSWORD;
-//        $this->autocomplete = self::TYPE_AUTOCOMPLETE_NEW_PASSWORD;
+        $this->autocomplete = self::TYPE_AUTOCOMPLETE_NEW_PASSWORD;
         return $this;
     }
 
@@ -97,7 +97,8 @@ class InputField extends BaseField
 
     public function renderInput(): string
     {
-        return sprintf('<input type="%s" name="%s" value="%s" class="%s %s" id="%s" placeholder="%s" %s >',
+        return sprintf('<input %s type="%s" name="%s" value="%s" class="%s %s" id="%s" placeholder="%s" %s >',
+            $this->autocomplete,
             $this->type,
             $this->attribute,
             $this->model->{$this->attribute}, // Xavfsiz kodlash
