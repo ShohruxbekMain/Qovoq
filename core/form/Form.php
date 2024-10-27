@@ -26,9 +26,9 @@ class Form
         return new Form();
     }
 
-    public function field(Model $model, $attribute): Field
+    public function field(Model $model, $attribute): InputField
     {
-        return new Field($model, $attribute);
+        return new InputField($model, $attribute);
     }
     public static function end()
     {

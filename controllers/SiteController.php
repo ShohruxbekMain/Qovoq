@@ -12,6 +12,8 @@ namespace app\controllers;
 use app\core\Application;
 use app\core\Controller;
 use app\core\Request;
+use app\core\Response;
+use app\models\ContactForm;
 
 /**
  * Class       SiteController
@@ -23,31 +25,36 @@ class SiteController extends Controller
 {
     public function home()
     {
+        // Foydalanuvchini olish
+        $user = Application::$app->user; // Foydalanuvchi obyekti
+
+        // Agar foydalanuvchi tizimga kirgan bo'lsa, ismini olish
+        if ($user) {
+            $name = $user->getDisplayName(); // getDisplayName() metodini chaqirishingiz kerak
+        } else {
+            $name = "Guest"; // Agar foydalanuvchi kirmagan bo'lsa
+        }
+
         $params = [
-            'name' => "Guest",
-            'title' => "Home Page",
+            'name' => $name,
         ];
 //        return Application::$app->router->renderView('home', $params);
         return $this->render('home', $params);
     }
 
-    public function contact()
+    public function contact(Request $request, Response $response)
     {
-        $params = [
-            'title' => "Contact Us", // Dinamik title
-        ];
-        return $this->render('contact', $params);
-    }
-
-    public function handleContact(Request $request)
-    {
-        $body = $request->getBody();
-        echo '<pre>';
-        var_dump($body);
-        echo '</pre>';
-        exit;
-
-        return 'Handling submitted contact form';
+        $contact = new ContactForm();
+        if ($request->isPost()) {
+            $contact->loadData($request->getBody());
+            if ($contact->validate() && $contact->send()) {
+                Application::$app->session->setFlash('success', 'Your message has been sent.');
+                return $response->redirect('/contact');
+            }
+        }
+        return $this->render('contact', [
+            'model' => $contact
+        ]);
     }
 
 }

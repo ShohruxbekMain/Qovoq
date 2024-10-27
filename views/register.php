@@ -11,7 +11,10 @@
 use app\core\form\Form;
 use app\core\Model;
 use app\models\User;
-
+use app\core\View;
+/** @var  $this View */
+$this->title = 'Create an account / Sign up';
+$title = $this->title;
 /* @var $model User
  *
  */

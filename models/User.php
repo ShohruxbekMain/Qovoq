@@ -10,8 +10,7 @@
 namespace app\models;
 
 use app\core\Application;
-use app\core\DbModel;
-use app\core\Model;
+use app\core\UserModel;
 
 /**
  * Class       RegisterModel
@@ -19,7 +18,7 @@ use app\core\Model;
  * @author     Shohrux
  * @package    app\models
  */
-class User extends DbModel
+class User extends UserModel
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
@@ -37,6 +36,11 @@ class User extends DbModel
     public function tableName(): string
     {
         return 'users';
+    }
+
+    public static function primaryKey(): string
+    {
+        return 'id';
     }
 
     public function save()
@@ -87,11 +91,18 @@ class User extends DbModel
         ];
     }
 
-    public function emailExists($email): bool {
+    public function getDisplayName(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+    public function emailExists($email): bool
+    {
         $stmt = Application::$app->db->prepare("SELECT * FROM " . $this->tableName() . " WHERE email = :email");
-//        $stmt = $this->db->prepare("SELECT * FROM " . $this->tableName() . " WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         return $stmt->rowCount() > 0;
     }
+
+
 }
