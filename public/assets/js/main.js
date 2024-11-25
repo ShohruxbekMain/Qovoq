@@ -55,8 +55,7 @@ function setupPasswordShow() {
 
             $(this).hide();
             $(this).siblings(".hide-password").show({
-                duration: 250,
-                start: function () {
+                duration: 250, start: function () {
                     $(this).css('display', 'flex');
                 }
             });
@@ -91,8 +90,7 @@ function setupPasswordShow() {
 
             $(this).hide();
             $(this).siblings(".show-password").show({
-                duration: 250,
-                start: function () {
+                duration: 250, start: function () {
                     $(this).css('display', 'flex');
                 }
             });
@@ -111,8 +109,7 @@ function setupPasswordShow() {
             confirmPasswordField.attr("type", "text"); // Confirm parolni ko'rsatish
             $(this).hide(); // Show iconni yashirish
             $(this).siblings(".hide-confirm-password").show({
-                duration: 250,
-                start: function () {
+                duration: 250, start: function () {
                     $(this).css('display', 'flex');
                 }
             }); // Hide iconni ko'rsatish
@@ -120,8 +117,7 @@ function setupPasswordShow() {
             confirmPasswordField.attr("type", "password"); // Confirm parolni berkitish
             $(this).hide(); // Hide iconni yashirish
             $(this).siblings(".show-confirm-password").show({
-                duration: 250,
-                start: function () {
+                duration: 250, start: function () {
                     $(this).css('display', 'flex');
                 }
             }); // Show iconni ko'rsatish
@@ -129,10 +125,37 @@ function setupPasswordShow() {
     });
 }
 
+function setGridList() {
+    $('#list').click(function (event) {
+        event.preventDefault();
+        $('#products').addClass('list-group-wrapper').removeClass('grid-group-wrapper');
+    });
+    $('#grid').click(function (event) {
+        event.preventDefault();
+        $('#products').removeClass('list-group-wrapper').addClass('grid-group-wrapper');
+    });
+}
+
+function gridListBtn() {
+    $('.list-grid-toggle').click(function () {
+        var txt = $(".icon").hasClass('icon-grid') ? 'List' : 'Grid';
+        $('.icon').toggleClass('icon-grid');
+        $(".label").text(txt);
+    })
+
+/*    $('.list-grid-toggle').click(function(event) {
+        event.preventDefault();
+        $('.icon').toggleClass('icon-grid');
+    });*/
+}
+
 // Sahifa yangilanganidan keyin hodisalarni qayta yuklatish kerak
 $(document).ready(function () {
     setupPasswordValidation();  // Sahifa birinchi marta yuklanganda
     setupPasswordShow();
+    setGridList();
+    gridListBtn();
+
     // $("#icon-show").click(function () {
     //     $(this).toggleClass("bx bx-show bx bx-hide");
     //     var type = $(this).hasClass("bx bx-hide") ? "text" : "password";
@@ -145,4 +168,6 @@ $(document).ready(function () {
 $(document).ajaxComplete(function () {
     setupPasswordValidation();  // Partial view yoki Ajax responsedan keyin qayta yuklash
     setupPasswordShow();
+    setGridList();
+    gridListBtn();
 });

@@ -37,6 +37,11 @@ class SiteController extends Controller
 
         $params = [
             'name' => $name,
+            // Home sahifasida breadcrumb yo'q
+            // 'breadcrumbs' => []  // Home sahifasida breadcrumb qo'shilmadi
+//            'breadcrumbs' => [
+//                'Home' => '/',
+//            ],
         ];
 //        return Application::$app->router->renderView('home', $params);
         return $this->render('home', $params);
@@ -53,7 +58,12 @@ class SiteController extends Controller
             }
         }
         return $this->render('contact', [
-            'model' => $contact
+            'model' => $contact,
+            'breadcrumbs' => [
+                'Home' => '/',
+                'Contact' => null,  // null bo'lsa, bu joriy sahifa
+//                'Contact' => '/contact',
+            ],
         ]);
     }
 

@@ -11,6 +11,7 @@ use app\core\form\Form;
 use app\core\Model;
 use app\models\User;
 use app\core\View;
+
 /** @var  $this View */
 $title = $this->title = 'Login / Sign In';
 /* @var $model User
@@ -18,6 +19,7 @@ $title = $this->title = 'Login / Sign In';
  */
 ?>
 <div class="container mt-5 ">
+
     <h1 class="mb-3"><?= htmlspecialchars($title ?? 'Login') ?></h1>
     <?php $form = Form::begin('', "post"); ?>
     <div class="row mb-3">
@@ -37,13 +39,11 @@ $title = $this->title = 'Login / Sign In';
             </div>
         </div>
         <div class="col-lg-6 col-md-12">
-            <div class="">
-                <a class="form-group" href="<?= htmlspecialchars($loginUrl ?? '/register') ?>">
-                    I have not an account
-                </a>
-            </div>
+            <a class="form-group" href="<?= htmlspecialchars($loginUrl ?? '/register') ?>">
+                I have not an account
+            </a>
         </div>
     </div>
-<button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
-<?php Form::end(); ?>
+    <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+    <?php Form::end(); ?>
 </div>

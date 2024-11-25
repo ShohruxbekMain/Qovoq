@@ -18,14 +18,15 @@ use app\models\ContactForm;
 
 $title = $this->title = 'Contact page';
 ?>
-<div class="container mt-5 ">
+<div class="container mt-3 ">
     <h1 class="mb-3"><?= htmlspecialchars($title) ?></h1>
     <p>This is the contact page paragraph.</p>
     <?php $form = Form::begin('', 'post') ?>
     <?= $form->field($model, 'subject'); ?>
     <?= $form->field($model, 'email')->emailField(); ?>
     <!--    --><?php //= $form->field($model, 'body'); ?>
-    <?= new TextareaField($model, 'body') ?>
+    <!--    --><?php //= new TextareaField($model, 'body') ?>
+    <?= $form->fieldTextarea($model, 'body') ?>
     <button type="submit" class="btn btn-primary">Submit</button>
     <?php Form::end(); ?>
 

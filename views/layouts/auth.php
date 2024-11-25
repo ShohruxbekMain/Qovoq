@@ -32,9 +32,25 @@ $title = $this->title;
     <link rel="stylesheet" href="./assets/css/animate.min.css">
     <link rel="stylesheet" href="./assets/css/animations.css">
     <link rel="stylesheet" href="./assets/css/transformations.css">
+    <link rel="stylesheet" href="./assets/css/fonts.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
+<?php if (isset($breadcrumbs) && !empty($breadcrumbs)): ?>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <?php foreach ($breadcrumbs as $name => $url): ?>
+                <li class="breadcrumb-item">
+                    <?php if ($url): ?>
+                        <a href="<?= htmlspecialchars($url) ?>"><?= htmlspecialchars($name) ?></a>
+                    <?php else: ?>
+                        <?= htmlspecialchars($name) ?>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    </nav>
+<?php endif; ?>
 {{content}}
 <!--<script src="../../public/assets/js/jquery-3.7.1.min.js"></script>
 <script src="../../public/assets/js/bootstrap/bootstrap.bundle.min.js"></script>

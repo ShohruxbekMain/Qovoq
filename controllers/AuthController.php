@@ -68,9 +68,16 @@ class AuthController extends Controller
         }
         $this->setLayout('auth');
 
-        return $this->render('login', [
-            'model' => $loginForm,  // Dinamik title
-        ]);
+        $params = [
+            'model' => $loginForm,
+            // Faqat bosh sahifa linkini berish
+            'breadcrumbs' => [
+                'Home' => '/',  // Yoki kerak bo'lsa, boshqa sahifalarni qo'shishingiz mumkin
+                'Login' => null,
+            ]
+        ];
+
+        return $this->render('login',$params);
     }
 
     public function register(Request $request, Response $response)
@@ -92,14 +99,27 @@ class AuthController extends Controller
                 Application::$app->response->redirect('/');
                 exit;
             }
-            return $this->render('register', [
-                'model' => $user
-            ]);
+
+            $params = [
+                'model' => $user,
+                // Faqat bosh sahifa linkini berish
+                'breadcrumbs' => [
+                    'Home' => '/',  // Yoki kerak bo'lsa, boshqa sahifalarni qo'shishingiz mumkin
+                    'Registration' => null,
+                ]
+            ];
+            return $this->render('register', $params);
         }
         $this->setLayout('auth');
-        return $this->render('register', [
-            'model' => $user
-        ]);
+        $params = [
+            'model' => $user,
+            // Faqat bosh sahifa linkini berish
+            'breadcrumbs' => [
+                'Home' => '/',  // Yoki kerak bo'lsa, boshqa sahifalarni qo'shishingiz mumkin
+                'Registration' => null,
+            ]
+        ];
+        return $this->render('register', $params);
     }
 
     public function checkEmail()
@@ -135,7 +155,10 @@ class AuthController extends Controller
     public function profile()
     {
         $params = [
-            'title' => "Profile", // Dinamik title
+            'breadcrumbs' => [
+                'Home' => '/',  // Yoki kerak bo'lsa, boshqa sahifalarni qo'shishingiz mumkin
+                'Profile' => null,
+            ]
         ];
         return $this->render('profile', $params);
     }

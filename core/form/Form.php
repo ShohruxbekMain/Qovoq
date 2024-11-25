@@ -30,6 +30,12 @@ class Form
     {
         return new InputField($model, $attribute);
     }
+
+      public function fieldTextarea(Model $model, $attribute): TextareaField
+    {
+        return new TextareaField($model, $attribute);
+    }
+
     public static function end()
     {
         echo '</form>';
